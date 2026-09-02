@@ -1,4 +1,4 @@
-# CBCT-to-sCT: Latent Diffusion Model with ViT Bottleneck
+# CBCT-to-sCT:LDM+ViT
 
 Synthetic CT (sCT) generation from Cone-Beam CT (CBCT) using a two-stage
 pipeline:
@@ -18,39 +18,17 @@ Trained and evaluated on the [SynthRAD2025 Task 2](https://zenodo.org/records/15
 CBCT-to-sCT/
 │
 ├── models/
-│   ├── __init__.py          # empty, makes `models` a package
-│   ├── autoencoder.py       # ResBlock, Encoder, Decoder, Autoencoder
-│   ├── unet.py               # ConditionEncoder, TimeEmbedding, ConditionalDiffusionModel
-│   ├── vit.py                 # TransformerBlock, ViTBottleneck
-│   └── diffusion.py         # GaussianDiffusion: noise schedule, add_noise, training loss, sampling
+│   ├── autoencoder.py
+│   ├── unet.py
+│   ├── vit.py
+│   └── diffusion.py
 │
-├── dataset.py                # NIfTI loading, normalization, slicing, CBCTCTDataset, get_dataloaders
-├── config.py                  # all paths, hyperparameters, device
-├── main.py                    # trains autoencoder, then diffusion model; saves checkpoints
-├── evaluate.py                # runs inference on test set, computes PSNR/SSIM/LPIPS/FID/DSC
+├── dataset.py
+├── config.py
+├── main.py
+├── evaluate.py
 ├── requirements.txt
-├── README.md
-│
-├── data/                       # you create this — raw dataset lives here
-│   └── SynthRAD2025_Task2/
-│       └── <patient folders with CT + CBCT volumes>
-│
-├── checkpoints/               # auto-created — trained model weights land here
-│   ├── autoencoder.pt
-│   └── diffusion_model.pt
-│
-└── results/                    # auto-created — evaluation CSVs land here
-    ├── ldm_vit_test_per_slice.csv
-    └── ldm_vit_summary.csv
-
-## 2. Prerequisites
-
-- Python 3.9–3.11
-- A CUDA-capable GPU is strongly recommended (the diffusion model does
-  1000-step sampling per batch at eval time — this is slow on CPU)
-- ~15–30 GB free disk space for the dataset, depending on how much you
-  extract
-- VS Code with the Python extension (optional but assumed, given your setup)
+└── README.md
 
 ## 3. Installation
 
